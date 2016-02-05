@@ -1,0 +1,12 @@
+{
+    "github": {
+        "last_event_id": "{ ID }",
+        "org_repo": "{ ORG }/{ REPO }"
+    },
+    "twilio": {
+        "auth_token": "{ auth_token }",
+        "number_from": "{ number_from }",
+        "number_to": "{ number_to }",
+        "sid": "{ sid }"
+    }
+}
