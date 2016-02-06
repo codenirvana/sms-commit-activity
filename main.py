@@ -1,21 +1,32 @@
+#!/usr/bin/python
 import requests
 import json
+import os
 from datetime import datetime
 from twilio.rest import TwilioRestClient
 
+def open_config(mode):
+    cwd = os.getcwd()
+    if 'sms-commit-activity' in cwd:
+        cwd = ''
+    else:
+        cwd = cwd + '/sms-commit-activity/'
+
+    config_file = open(cwd+'config.json', mode)
+    return config_file
+
 def get_config():
-    with open('config.json') as f:
-	       config = json.load(f)
+    config = json.load( open_config('r') )
     return config
 
 def update_config(id):
-    config_file = open("config.json", "r")
+    config_file = open_config('r')
     data = json.load(config_file)
     config_file.close()
 
     data['github']['last_event_id'] = id
 
-    config_file = open("config.json", "w+")
+    config_file = open_config('w')
     config_file.write(json.dumps(data, sort_keys=True, indent=4))
     config_file.close()
 
@@ -44,20 +55,15 @@ def check_commit_activity(github):
     return list( reversed(new_events) )
 
 def send_sms(twilio, events):
-    try:
-        client = TwilioRestClient( twilio['sid'], twilio['auth_token'] )
+    client = TwilioRestClient( twilio['sid'], twilio['auth_token'] )
 
-        message_body = str( len(events) ) + " new " + ('commit' if len(events) ==1 else 'commits') + ": \r\n"
-        message_body += ' \r\n'.join(events)
-        message = client.messages.create(
-            to = twilio["number_to"],
-            from_ = twilio["number_from"],
-            body = message_body
-        )
-    except:
-        logs_file = open('error-logs.txt', 'a')
-        logs_file.write(str(datetime.now()) + '\n')
-        logs_file.close()
+    message_body = str( len(events) ) + " new " + ('commit' if len(events) ==1 else 'commits') + ": \r\n"
+    message_body += ' \r\n'.join(events)
+    message = client.messages.create(
+        to = twilio["number_to"],
+        from_ = twilio["number_from"],
+        body = message_body
+    )
 
 def main():
     config = get_config()
