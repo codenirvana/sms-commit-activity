@@ -31,7 +31,7 @@ def update_config(id):
     config_file.close()
 
 def get_events(username):
-    events = requests.get("https://api.github.com/repos/%s/events" % username)
+    events = requests.get("https://api.github.com/repos/%s/events?per_page=5" % username)
     events = json.loads(events.text)
     return events
 
