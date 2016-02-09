@@ -3,6 +3,7 @@ Receive SMS notifications for commits to a repository
 
 > Main idea behind this project is to track an organization or personal repository and get updates for changes done by your team!
 
+
 ## Requirements
 
 ### Installing Python dependencies
@@ -12,9 +13,11 @@ pip install -r requirements.txt
 ### Twilio Account
 Signup for a [Twilio](https://www.twilio.com) account
 
+### Server / VM
+A server is required to run script as a cronjob so that script will run continuously as long as server is running.
+
 
 ## Setting Up The Server
-A server is required to run script as a cronjob so that script will run continuously as long as server is running.
 
 ### Build The Script
 ```bash
@@ -35,7 +38,9 @@ example:
 */10 * * * * ~/sms-commit-activity/main.py
 ```
 
-**NOTE:** ```sms-commit-activity``` folder must be placed at your home ```~``` directory.
+**NOTE:**
+* ```sms-commit-activity``` folder must be placed at your home ```~``` directory.
+* While testing this script on your PC, you can place the ```sms-commit-activity``` folder in any directory.
 
 
 ## Configurations
