@@ -44,7 +44,7 @@ example:
 
 
 ## Configurations
-Open config.json file and fill relevant information.
+Open ```config.json``` file and fill relevant information.
 
 **org_repo** : your_org_username/your_repo_name
 
