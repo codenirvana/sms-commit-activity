@@ -6,10 +6,6 @@ Receive SMS notifications for commits to a repository
 
 ## Requirements
 
-### Installing Python dependencies
-```python
-pip install -r requirements.txt
-```
 ### Twilio Account
 Signup for a [Twilio](https://www.twilio.com) account
 
